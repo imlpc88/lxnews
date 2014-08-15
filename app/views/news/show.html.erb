@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Flag:</strong>
+  <%= @news.flag %>
+</p>
+
+<p>
+  <strong>Img:</strong>
+  <%= @news.img %>
+</p>
+
+<p>
+  <strong>Link:</strong>
+  <%= @news.link %>
+</p>
+
+<p>
+  <strong>Maintext:</strong>
+  <%= @news.mainText %>
+</p>
+
+<p>
+  <strong>Resid:</strong>
+  <%= @news.resID %>
+</p>
+
+<p>
+  <strong>Secsrca:</strong>
+  <%= @news.secSrcA %>
+</p>
+
+<p>
+  <strong>Sumfrom:</strong>
+  <%= @news.sumFrom %>
+</p>
+
+<p>
+  <strong>Summary:</strong>
+  <%= @news.summary %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @news.title %>
+</p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @news.type %>
+</p>
+
+<%= link_to 'Edit', edit_news_path(@news) %> |
+<%= link_to 'Back', news_index_path %>
