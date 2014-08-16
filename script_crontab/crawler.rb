@@ -1,3 +1,5 @@
+#!/usr/local/rvm/rubies/ruby-1.9.3-p545/bin/ruby
+
 require 'rss/2.0'
 require 'open-uri'
 require 'mysql2'
@@ -78,8 +80,8 @@ puts "open skey: #{open.skey}"
 
 push_uri = "http://115.28.218.69:8080/posts/#{post_id}.json?count=4"
 puts "push_uri: " + push_uri
-res = open.send_pictext_msg(push_uri, open_id, "testPic", from_user)
+res = open.send_pictext_msg(push_uri, open_id, "#{feed.items.first.title}", from_user)
 puts "send pic msg return #{res}"
-res = open.send_pictext_msg(push_uri, open_id, "testPic", from_user)
+res = open.send_pictext_msg(push_uri, "18710842198", "testPic", from_user)
 puts "send pic msg return #{res}"
 
