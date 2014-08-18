@@ -1,0 +1,13 @@
+--2014-08-16 15:51:18--  http://news.qq.com/a/20140815/021391.htm
+Resolving news.qq.com... 125.39.240.113, 61.135.157.156, 2402:4e00::b, ...
+Connecting to news.qq.com|125.39.240.113|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: unspecified [text/html]
+Saving to: “tmp.htm”
+
+     0K .......... .......... .......... .......... ..........  979K
+    50K .......... .......... .......... .......... .......... 1.88M
+   100K .......... .......... .......... .......... ...        3.26M=0.09s
+
+2014-08-16 15:51:18 (1.55 MB/s) - “tmp.htm” saved [146456]
+
