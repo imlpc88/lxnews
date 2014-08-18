@@ -1,9 +1,15 @@
-#!/usr/local/rvm/rubies/ruby-1.9.3-p545/bin/ruby
+
+puts "requiring"
 
 require 'rss/2.0'
 require 'open-uri'
 require 'mysql2'
+puts 'mysql2 required!!'
+
 require 'lanxin_open'
+puts 'lanxin_open required!!'
+
+puts "require done!"
 
 LanxinOpen.config do
   host "https://open-dev.lanxin.cn"
@@ -22,6 +28,15 @@ def get_news_id(cli)
 	sql = "select id from news where id in \(select max\(id\) from news\)"
 	results = cli.query(sql)
 	return results.first["id"]
+end
+
+def get_img_link(url)
+	`wget #{url} -O tmp.htm -o nothing.log`
+	doc = Nokogiri::HTML(File.read('tmp.htm'))
+	link = ""
+	link += doc.xpath('//img')[2].attributes()["src"].value() unless doc.xpath('//img')[2].attributes()["src"] == nil
+	return link if link =~ /[\d]{9}/
+	return link
 end
 
 def insert_to_posts(cli)
@@ -53,10 +68,12 @@ puts post_id
 news_id_before_insert = get_news_id(client)
 url = 'http://news.qq.com/newsgn/rss_newsgn.xml'
 feed = RSS::Parser.parse(open(url).read, false)
-img = "http://lxhelp.wqapp.cn/helplx_uploads/KEY_3002_DianxingAnli-1/zhongtiejian.png"
+img = "http://lanxin.cn/w/image/about_bg.png"
 links_array = get_link_array(client)
 
 feed.items.each do |item|
+	img_tmp = get_img_link(item.link)
+	img = img_tmp unless img_tmp == ""
 	insert_to_news(client, item.title, item.link, img, post_id) unless links_array.include?(item.link) || ((news_id_before_insert+4) == get_news_id(client))
 end
 
@@ -82,6 +99,6 @@ push_uri = "http://115.28.218.69:8080/posts/#{post_id}.json?count=4"
 puts "push_uri: " + push_uri
 res = open.send_pictext_msg(push_uri, open_id, "#{feed.items.first.title}", from_user)
 puts "send pic msg return #{res}"
-res = open.send_pictext_msg(push_uri, "18710842198", "testPic", from_user)
+res = open.send_pictext_msg(push_uri, "18710842198", "#{feed.items.first.title}", from_user)
 puts "send pic msg return #{res}"
 
